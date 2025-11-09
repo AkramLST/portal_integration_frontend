@@ -1,54 +1,56 @@
-'use client';
-import React from 'react'
-import { useState, useEffect } from 'react';
-import './export.css';
+"use client";
+import React from "react";
+import { useState, useEffect } from "react";
+import "./export.css";
 
 const page = () => {
-  const [filterType, setFilterType] = useState('default');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [filterType, setFilterType] = useState("default");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     const getCookie = (name) => {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      const match = document.cookie.match(
+        new RegExp("(^| )" + name + "=([^;]+)")
+      );
       if (match) return match[2];
       return null;
     };
-    const t = getCookie('authToken');
+    const t = getCookie("authToken");
     if (!t) {
-      alert('Session expired. Please login again.');
-      window.location.href = '/';
+      alert("Session expired. Please login again.");
+      window.location.href = "/";
       return;
     }
     setToken(t);
   }, []);
 
   const handleInvalidToken = () => {
-    alert('Invalid or expired token. Please login again.');
-    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // clear cookie
-    window.location.href = '/'; // redirect to login
+    alert("Invalid or expired token. Please login again.");
+    document.cookie =
+      "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // clear cookie
+    window.location.href = "/"; // redirect to login
   };
-
 
   const handleExport = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log('Export type:', filterType);
+    console.log("Export type:", filterType);
 
-    if (filterType === 'custom') {
+    if (filterType === "custom") {
       const fromDateTime = `${startDate}T00:00:00`;
       const toDateTime = `${endDate}T23:59:59`;
       try {
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}to=${toDateTime}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -58,35 +60,34 @@ const page = () => {
         }
         const blob = await response.blob();
         const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = downloadUrl;
-        a.download = 'exported-data.dat';
+        a.download = "exported-data.dat";
         a.click();
         a.remove();
         window.URL.revokeObjectURL(downloadUrl);
         setIsLoading(false);
         // console.log("Here Data : ", data)
       } catch (err) {
-        console.error('Export failed:', err);
+        console.error("Export failed:", err);
         setIsLoading(false);
       }
-
-    }
-    else if (filterType === 'default') {
+    } else if (filterType === "default") {
       try {
         // Calculate last 24 hours
         const now = new Date();
-        const toDateTime = now.toISOString().split('.')[0]; // current time (UTC)
+        const toDateTime = now.toISOString().split(".")[0]; // current time (UTC)
         const fromDateTime = new Date(now.getTime() - 24 * 60 * 60 * 1000) // minus 24 hours
           .toISOString()
-          .split('.')[0]; // 24h earlier
+          .split(".")[0]; // 24h earlier
 
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}&to=${toDateTime}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Authorization': `Bearer ${token}`,
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -98,28 +99,27 @@ const page = () => {
         const blob = await response.blob();
         const downloadUrl = window.URL.createObjectURL(blob);
 
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = downloadUrl;
-        a.download = 'exported-data.dat';
+        a.download = "exported-data.dat";
         a.click();
         a.remove();
         window.URL.revokeObjectURL(downloadUrl);
         setIsLoading(false);
       } catch (err) {
-        console.error('Export failed:', err);
+        console.error("Export failed:", err);
         setIsLoading(false);
       }
-
-    }
-    else {
+    } else {
       try {
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat`,
           {
-            method: 'GET',
-            // headers: {
-            //   'Authorization': `Bearer ${token}`,
-            // },
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
@@ -130,15 +130,15 @@ const page = () => {
         const blob = await response.blob();
         const downloadUrl = window.URL.createObjectURL(blob);
 
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = downloadUrl;
-        a.download = 'exported-data.dat';
+        a.download = "exported-data.dat";
         a.click();
         a.remove();
         window.URL.revokeObjectURL(downloadUrl);
         setIsLoading(false);
       } catch (err) {
-        console.error('Export failed:', err);
+        console.error("Export failed:", err);
         setIsLoading(false);
       }
     }
@@ -155,13 +155,13 @@ const page = () => {
                 type="radio"
                 name="filter"
                 value="custom"
-                checked={filterType === 'custom'}
-                onChange={() => setFilterType('custom')}
+                checked={filterType === "custom"}
+                onChange={() => setFilterType("custom")}
               />
               Custom Date Range
             </label>
 
-            {filterType === 'custom' && (
+            {filterType === "custom" && (
               <div className="date-range">
                 <div>
                   <label>From:</label>
@@ -189,8 +189,8 @@ const page = () => {
                 type="radio"
                 name="filter"
                 value="full"
-                checked={filterType === 'full'}
-                onChange={() => setFilterType('full')}
+                checked={filterType === "full"}
+                onChange={() => setFilterType("full")}
               />
               Full Dataset Export
             </label>
@@ -200,19 +200,20 @@ const page = () => {
                 type="radio"
                 name="filter"
                 value="default"
-                checked={filterType === 'default'}
-                onChange={() => setFilterType('default')}
+                checked={filterType === "default"}
+                onChange={() => setFilterType("default")}
               />
               Default (Last 24 Hours)
             </label>
           </div>
 
-          <button type="submit" disabled={isLoading}>Export Data</button>
+          <button type="submit" disabled={isLoading}>
+            Export Data
+          </button>
         </form>
       </div>
     </div>
   );
-}
+};
 
-export default page
-
+export default page;
