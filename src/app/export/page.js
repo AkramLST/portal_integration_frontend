@@ -127,16 +127,16 @@ const page = () => {
           handleInvalidToken();
           return;
         }
-        const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
+        // const blob = await response.blob();
+        // const downloadUrl = window.URL.createObjectURL(blob);
 
-        const a = document.createElement("a");
-        a.href = downloadUrl;
-        a.download = "exported-data.dat";
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(downloadUrl);
-        setIsLoading(false);
+        // const a = document.createElement("a");
+        // a.href = downloadUrl;
+        // a.download = "exported-data.dat";
+        // a.click();
+        // a.remove();
+        // window.URL.revokeObjectURL(downloadUrl);
+        // setIsLoading(false);
       } catch (err) {
         console.error("Export failed:", err);
         setIsLoading(false);
