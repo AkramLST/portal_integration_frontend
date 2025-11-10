@@ -46,7 +46,7 @@ const page = () => {
 
       try {
         const response = await fetch(
-          `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}to=${toDateTime}`,
+          `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}&to=${toDateTime}`,
           {
             method: "GET",
             headers: {
