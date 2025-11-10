@@ -41,8 +41,9 @@ const page = () => {
     console.log("Export type:", filterType);
 
     if (filterType === "custom") {
-      const fromDateTime = `${startDate}`;
-      const toDateTime = `${endDate}`;
+      const fromDateTime = startDate;
+      const toDateTime = endDate;
+
       try {
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}to=${toDateTime}`,
