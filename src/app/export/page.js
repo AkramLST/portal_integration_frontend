@@ -45,6 +45,7 @@ const page = () => {
       const toDateTime = endDate;
 
       try {
+        // 🔹 1st download — main dat file
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}&to=${toDateTime}`,
           {
@@ -67,21 +68,41 @@ const page = () => {
         a.click();
         a.remove();
         window.URL.revokeObjectURL(downloadUrl);
+
+        // 🔹 2nd download — summary dat file
+        const response2 = await fetch(
+          `https://portal-integration-project-lst.vercel.app/export/summary?from=${fromDateTime}&to=${toDateTime}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const blob2 = await response2.blob();
+        const downloadUrl2 = window.URL.createObjectURL(blob2);
+        const a2 = document.createElement("a");
+        a2.href = downloadUrl2;
+        a2.download = "school-summary.dat";
+        a2.click();
+        a2.remove();
+        window.URL.revokeObjectURL(downloadUrl2);
+
         setIsLoading(false);
-        // console.log("Here Data : ", data)
       } catch (err) {
         console.error("Export failed:", err);
         setIsLoading(false);
       }
     } else if (filterType === "default") {
       try {
-        // Calculate last 24 hours
         const now = new Date();
-        const toDateTime = now.toISOString().split(".")[0]; // current time (UTC)
-        const fromDateTime = new Date(now.getTime() - 24 * 60 * 60 * 1000) // minus 24 hours
+        const toDateTime = now.toISOString().split(".")[0];
+        const fromDateTime = new Date(now.getTime() - 24 * 60 * 60 * 1000)
           .toISOString()
-          .split(".")[0]; // 24h earlier
+          .split(".")[0];
 
+        // 🔹 1st download — main dat file
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat?from=${fromDateTime}&to=${toDateTime}`,
           {
@@ -99,13 +120,33 @@ const page = () => {
         }
         const blob = await response.blob();
         const downloadUrl = window.URL.createObjectURL(blob);
-
         const a = document.createElement("a");
         a.href = downloadUrl;
         a.download = "exported-data.dat";
         a.click();
         a.remove();
         window.URL.revokeObjectURL(downloadUrl);
+
+        // 🔹 2nd download — summary dat file
+        const response2 = await fetch(
+          `https://portal-integration-project-lst.vercel.app/export/summary?from=${fromDateTime}&to=${toDateTime}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const blob2 = await response2.blob();
+        const downloadUrl2 = window.URL.createObjectURL(blob2);
+        const a2 = document.createElement("a");
+        a2.href = downloadUrl2;
+        a2.download = "school-summary.dat";
+        a2.click();
+        a2.remove();
+        window.URL.revokeObjectURL(downloadUrl2);
+
         setIsLoading(false);
       } catch (err) {
         console.error("Export failed:", err);
@@ -113,6 +154,7 @@ const page = () => {
       }
     } else {
       try {
+        // 🔹 1st download — main dat file
         const response = await fetch(
           `https://portal-integration-project-lst.vercel.app/export/dat`,
           {
@@ -130,13 +172,33 @@ const page = () => {
         }
         const blob = await response.blob();
         const downloadUrl = window.URL.createObjectURL(blob);
-
         const a = document.createElement("a");
         a.href = downloadUrl;
         a.download = "exported-data.dat";
         a.click();
         a.remove();
         window.URL.revokeObjectURL(downloadUrl);
+
+        // 🔹 2nd download — summary dat file
+        const response2 = await fetch(
+          `https://portal-integration-project-lst.vercel.app/export/summary`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const blob2 = await response2.blob();
+        const downloadUrl2 = window.URL.createObjectURL(blob2);
+        const a2 = document.createElement("a");
+        a2.href = downloadUrl2;
+        a2.download = "school-summary.dat";
+        a2.click();
+        a2.remove();
+        window.URL.revokeObjectURL(downloadUrl2);
+
         setIsLoading(false);
       } catch (err) {
         console.error("Export failed:", err);
