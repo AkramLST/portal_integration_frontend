@@ -70,24 +70,24 @@ const page = () => {
         window.URL.revokeObjectURL(downloadUrl);
 
         // 🔹 2nd download — summary dat file
-        const response2 = await fetch(
-          `https://portal-integration-project-lst.vercel.app/export/summary?from=${fromDateTime}&to=${toDateTime}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const blob2 = await response2.blob();
-        const downloadUrl2 = window.URL.createObjectURL(blob2);
-        const a2 = document.createElement("a");
-        a2.href = downloadUrl2;
-        a2.download = "school-summary.dat";
-        a2.click();
-        a2.remove();
-        window.URL.revokeObjectURL(downloadUrl2);
+        // const response2 = await fetch(
+        //   `https://portal-integration-project-lst.vercel.app/export/summary?from=${fromDateTime}&to=${toDateTime}`,
+        //   {
+        //     method: "GET",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        // const blob2 = await response2.blob();
+        // const downloadUrl2 = window.URL.createObjectURL(blob2);
+        // const a2 = document.createElement("a");
+        // a2.href = downloadUrl2;
+        // a2.download = "school-summary.dat";
+        // a2.click();
+        // a2.remove();
+        // window.URL.revokeObjectURL(downloadUrl2);
 
         setIsLoading(false);
       } catch (err) {
@@ -128,24 +128,24 @@ const page = () => {
         window.URL.revokeObjectURL(downloadUrl);
 
         // 🔹 2nd download — summary dat file
-        const response2 = await fetch(
-          `https://portal-integration-project-lst.vercel.app/export/summary?from=${fromDateTime}&to=${toDateTime}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const blob2 = await response2.blob();
-        const downloadUrl2 = window.URL.createObjectURL(blob2);
-        const a2 = document.createElement("a");
-        a2.href = downloadUrl2;
-        a2.download = "school-summary.dat";
-        a2.click();
-        a2.remove();
-        window.URL.revokeObjectURL(downloadUrl2);
+        // const response2 = await fetch(
+        //   `https://portal-integration-project-lst.vercel.app/export/summary?from=${fromDateTime}&to=${toDateTime}`,
+        //   {
+        //     method: "GET",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        // const blob2 = await response2.blob();
+        // const downloadUrl2 = window.URL.createObjectURL(blob2);
+        // const a2 = document.createElement("a");
+        // a2.href = downloadUrl2;
+        // a2.download = "school-summary.dat";
+        // a2.click();
+        // a2.remove();
+        // window.URL.revokeObjectURL(downloadUrl2);
 
         setIsLoading(false);
       } catch (err) {
@@ -180,24 +180,24 @@ const page = () => {
         window.URL.revokeObjectURL(downloadUrl);
 
         // 🔹 2nd download — summary dat file
-        const response2 = await fetch(
-          `https://portal-integration-project-lst.vercel.app/export/summary`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const blob2 = await response2.blob();
-        const downloadUrl2 = window.URL.createObjectURL(blob2);
-        const a2 = document.createElement("a");
-        a2.href = downloadUrl2;
-        a2.download = "school-summary.dat";
-        a2.click();
-        a2.remove();
-        window.URL.revokeObjectURL(downloadUrl2);
+        // const response2 = await fetch(
+        //   `https://portal-integration-project-lst.vercel.app/export/summary`,
+        //   {
+        //     method: "GET",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        // const blob2 = await response2.blob();
+        // const downloadUrl2 = window.URL.createObjectURL(blob2);
+        // const a2 = document.createElement("a");
+        // a2.href = downloadUrl2;
+        // a2.download = "school-summary.dat";
+        // a2.click();
+        // a2.remove();
+        // window.URL.revokeObjectURL(downloadUrl2);
 
         setIsLoading(false);
       } catch (err) {
